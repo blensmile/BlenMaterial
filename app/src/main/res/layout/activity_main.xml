@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/fuck"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+        <!--tools:context="com.blenlearn.MainActivity"-->
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                />
+
+
+            <!--tabGravity  —Tab的重心，有填充和居中两个值，为别为fill和center。-->
+            <!--tabMode  —Tab的模式，有固定和滚动两个模式，分别为 fixed 和 scrollable。-->
+            <!--tabTextColor  —设置默认状态下Tab上字体的颜色。-->
+            <!--tabSelectedTextColor  —设置选中状态下Tab上字体的颜色。-->
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#03BCD4"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:tabIndicatorHeight="0dp"
+                app:tabSelectedTextColor="#ffff0000"
+                />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
+
+        <!-- <com.blenmaterial.Adapters.MyPagerAdapter-->
+
+        <!--这貌似没有below属性-->
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="#ff87ffeb"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:layout_behavior="com.blenmaterial.Layout.RotateBehavior"
+            app:rippleColor="#33728dff"/>
+        <!--吸取教训啊,每次改了工程路径没改xml里的路径,崩溃崩溃-->
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/menu_drawer"
+        />
+</android.support.v4.widget.DrawerLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.blenmaterial.Layout.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    >
+    <!--android:id="@+id/item_contact"-->
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        >
+        <TextView
+            android:id="@+id/tv_call"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="#666"
+            android:gravity="center"
+            android:text="Call"
+            android:textColor="#FFF"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="#F00"
+            android:gravity="center"
+            android:text="Delete"
+            android:textColor="#FFF"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/contacts_ll"
+        android:background="#7777">
+
+        <ImageView
+            android:id="@+id/head_iv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/head_1" />
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="TextView"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</com.blenmaterial.Layout.SwipeLayout>
