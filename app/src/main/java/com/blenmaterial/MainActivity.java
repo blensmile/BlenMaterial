@@ -1,5 +1,6 @@
 package com.blenmaterial;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +18,8 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.blenmaterial.Fragment.ContactsFragment;
-import com.blenmaterial.Fragment.SimpleRcFragment;
 import com.blenmaterial.Fragment.ListViewFragment;
+import com.blenmaterial.Fragment.SimpleRcFragment;
 import com.blenmaterial.Utils.LogUtils;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
