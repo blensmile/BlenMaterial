@@ -13,10 +13,10 @@ import com.blenmaterial.Explosion.ExplosionField;
 import com.blenmaterial.Explosion.factory.FlyawayFactory;
 import com.blenmaterial.Layout.SwipeLayout;
 import com.blenmaterial.R;
+import com.blenmaterial.Utils.LogUtils;
 
 import java.util.ArrayList;
 
-//import com.blenlearn.Layout.SpaceItemDecoration;
 
 /**
  * Created by Blensmile on 2016/3/20.
@@ -25,18 +25,21 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
 
     private Context context;
     private ArrayList<ContactsBean> list;
+    private static SwipeLayout openedItems;//限制只能一个打开
 
-    /**构造方法
+    /**
+     * 构造方法
      *
      * @param context
      * @param list
      */
-    public ContactsRcAdapter(Context context,  ArrayList<ContactsBean> list) {
+    public ContactsRcAdapter(Context context, ArrayList<ContactsBean> list) {
         this.context = context;
         this.list = list;
     }
 
-    /**创建ViewHolder的rootView
+    /**
+     * 创建ViewHolder的rootView
      *
      * @param parent
      * @param viewType
@@ -44,18 +47,47 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contacts, parent, false);
+        SwipeLayout view = (SwipeLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contacts, parent, false);
         return new ViewHolder(view);
     }
 
 
-    /**设置View,这里可以把onclidk写出去,不用这样写了,以后再说
+    /**
+     * 设置View,这里可以把onclick写出去,不用这样写了,以后再说
      *
      * @param holder
      * @param position
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+        //添加listener,保证只能同时打开一个.执行顺序为 A onStartOpen-->A onOpen-->
+        holder.rootView.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
+            @Override
+            public void onClose(SwipeLayout layout) {
+                LogUtils.i(position + "onClose");
+            }
+
+            @Override
+            public void onOpen(SwipeLayout layout) {
+                openedItems = layout;
+                LogUtils.i(position + "onOpen");
+            }
+
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+                if (null != openedItems) {
+                    openedItems.close(true);
+                    openedItems = null;
+                }
+                LogUtils.i(position + "onStartOpen");
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+
+                LogUtils.i(position + "onStartClose");
+            }
+        });
         holder.head.setImageResource(list.get(position).icon);
         holder.name.setText(list.get(position).name);
 
@@ -63,26 +95,32 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
             @Override
             public void onClick(final View v) {
                 ExplosionField explosionField = new ExplosionField(context, new FlyawayFactory());
-                //                explosionField.addListener(view);
+                //explosionField.addListener(view);
                 //getParent返回的ViewParent可能不是View,强转可能会有问题
-                explosionField.explode((View) v.getParent().getParent());
-                ((SwipeLayout) v.getParent().getParent()).close(true);//全部复位
+                //explosionField.explode((View) v.getParent().getParent());
+                //((SwipeLayout) v.getParent().getParent()).close(true);//全部复位
+
+                //这样就不用那么麻烦去找父控件了
+                openedItems.close(false);//不用动画效果
+                explosionField.explode(openedItems);
+                openedItems = null;//置空
+
                 //监听结束
                 explosionField.setOnExplosionAnimationEnd(new ExplosionField.OnExplosionAnimationEnd() {
                     @Override
                     public void onExplosionAnimationEnd() {
-                        //                            mCRAdapter.//remove(list.get(position));
+                        //mCRAdapter.//remove(list.get(position));
                         list.remove(position);
-                        //                            notifyItemChanged(position);
+                        //notifyItemChanged(position);
                         notifyDataSetChanged();//删除元素的逻辑问题解决了
-//                        setItemAnimator(new DefaultItemAnimator());//添加动画
+                        //setItemAnimator(new DefaultItemAnimator());//添加动画
 
                     }
                 });
             }
         });
-//        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.space);
-//        mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+        //        int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.space);
+        //        mRecyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
     }
 
     @Override
@@ -91,12 +129,12 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public View rootView;
+        public SwipeLayout rootView;
         public ImageView head;
         public TextView name;
         public TextView delete;
 
-        public ViewHolder(View view) {
+        public ViewHolder(SwipeLayout view) {
             super(view);
             rootView = view;
             head = (ImageView) view.findViewById(R.id.head_iv);
