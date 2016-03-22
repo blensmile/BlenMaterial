@@ -282,13 +282,13 @@ public class SwipeLayout extends FrameLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         //TODO 这里太霸道了,不能全部拦截,不然没法上下滚动了
-        //        getParent().requestDisallowInterceptTouchEvent(true);
+        //getParent().requestDisallowInterceptTouchEvent(true);
         switch (ev.getAction()){
             case MotionEvent.ACTION_DOWN:
                 mStartX = ev.getX();
                 mStartY = ev.getY();
                 //return true;//这里不能返回true,太独了
-                //                getParent().requestDisallowInterceptTouchEvent(true);
+                //getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
                 float endX = ev.getX();
@@ -318,8 +318,6 @@ public class SwipeLayout extends FrameLayout {
                 break;
 
         }
-
-        //        getParent().requestDisallowInterceptTouchEvent(true);
 
 
 

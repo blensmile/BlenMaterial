@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         BitmapFactory factory = new BitmapFactory();
         //        factory.decodeResource(R.drawable.google_plus_home_257px_554,);
-        actionBar.setHomeAsUpIndicator(R.mipmap.ic_home);
+        actionBar.setHomeAsUpIndicator(R.drawable.google_home);
 
         //        actionBar.setHomeAsUpIndicator(android.R.drawable.ic_dialog_alert);
 
