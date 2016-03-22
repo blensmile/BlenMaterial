@@ -1,16 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_info_details"
+    <item android:id="@+id/menu_blen"
         android:title="Blen"
         android:checked="true"
         android:icon="@android:drawable/ic_menu_info_details"/>
 
-    <item android:id="@+id/menu_share"
+    <item android:id="@+id/menu_this"
         android:title="This"
         android:checked="true"
         android:icon="@android:drawable/ic_menu_share"/>
 
-    <item android:id="@+id/menu_agenda"
+    <item android:id="@+id/menu_shit"
         android:title="Shit"
         android:checked="true"
         android:icon="@android:drawable/ic_menu_agenda"/>
