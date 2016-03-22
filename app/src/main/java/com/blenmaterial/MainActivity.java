@@ -1,7 +1,6 @@
 package com.blenmaterial;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -44,21 +43,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        ActionBar actionBar = getSupportActionBar();
-        BitmapFactory factory = new BitmapFactory();
-        //        factory.decodeResource(R.drawable.google_plus_home_257px_554,);
-        actionBar.setHomeAsUpIndicator(R.drawable.google_home);
+        ActionBar actionBar = this.getSupportActionBar();
+        if(null != actionBar) {                         //in case of nullpionterException, if actionBar is not exist
+            actionBar.setDisplayHomeAsUpEnabled(true);  //enable showing my icon
+            actionBar.setHomeAsUpIndicator(R.drawable.google_home);
+        }
 
-        //        actionBar.setHomeAsUpIndicator(android.R.drawable.ic_dialog_alert);
 
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayHomeAsUpEnabled(true);
         mPager = (ViewPager) findViewById(R.id.viewpager);
         mTab = (TabLayout) findViewById(R.id.tabs);
         initFragementPager();
-        //        initViewPage();
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
