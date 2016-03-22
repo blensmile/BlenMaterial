@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * 一个简单的只展示名字的ReciclerViewAdapter,使用代码创建用来展示的条目的TextView
- * 目前textview没能居中
+ * 目前用代码闯进啊的textview没能居中,使用xmlinflate的可以...
  *
  * Created by Blensmile on 2016/3/20.
  */

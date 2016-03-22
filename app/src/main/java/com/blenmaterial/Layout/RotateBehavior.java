@@ -10,7 +10,9 @@ import android.view.View;
 
 import java.util.List;
 
-/**
+/** 这是从张兴业的博客中拷贝的代码,博客地址:http://blog.csdn.net/xyz_lmn/article/details/48055919
+ *  实现了FloatingActionButton的旋转效果
+ *
  * Created by Blensmile on 2016/3/21.
  */
 public class RotateBehavior  extends CoordinatorLayout.Behavior<FloatingActionButton> {
