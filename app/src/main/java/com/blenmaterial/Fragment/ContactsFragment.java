@@ -1,5 +1,6 @@
 package com.blenmaterial.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,8 +30,13 @@ public class ContactsFragment extends Fragment {
     private RecyclerView mRcView;
 
     @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -45,20 +51,70 @@ public class ContactsFragment extends Fragment {
         }
 
         mRcView = new RecyclerView(getActivity());//一开始在想可不可代码创建,因为侧拉删除布局有问题,其实是可以的
-//        mRcView = (RecyclerView) inflater.inflate(R.layout.recicler_item, container, false);
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-//        mRcView.setLayoutParams(params);
+        //        mRcView = (RecyclerView) inflater.inflate(R.layout.recicler_item, container, false);
+        //        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        //        mRcView.setLayoutParams(params);
 
         //这个是必须设置的,不然不能正常绑定
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity() );
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayout.VERTICAL);
         mRcView.setLayoutManager(manager);
-        mRcView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
+        mRcView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
         ContactsRcAdapter mCRAdapter = new ContactsRcAdapter(getActivity(), list);
         mRcView.setAdapter(mCRAdapter);
         return mRcView;
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void setArguments(Bundle args) {
+        super.setArguments(args);
     }
 
 }
