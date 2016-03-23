@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
         mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(mNavItemOnClick);

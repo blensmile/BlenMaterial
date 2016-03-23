@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
 import com.blenmaterial.Adapters.ContactsRcAdapter;
@@ -17,6 +18,7 @@ import com.blenmaterial.Beans.ContactsBean;
 import com.blenmaterial.Layout.DividerItemDecoration;
 import com.blenmaterial.R;
 import com.blenmaterial.Utils.Cheeses;
+import com.blenmaterial.Utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,6 +30,7 @@ public class ContactsFragment extends Fragment {
     private int[] ICON_IDs = {R.drawable.baidu_map, R.drawable.changba, R.drawable.gaode_map, R.drawable.iqiyi, R.drawable.jd, R.drawable.lm, R.drawable.qq, R.drawable.qq_music, R.drawable.qzone, R.drawable.tb, R.drawable.vx, R.drawable.wb};
     ArrayList<ContactsBean> list;
     private RecyclerView mRcView;
+    private ContactsRcAdapter mCRAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -61,10 +64,22 @@ public class ContactsFragment extends Fragment {
         mRcView.setLayoutManager(manager);
         mRcView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
-        ContactsRcAdapter mCRAdapter = new ContactsRcAdapter(getActivity(), list);
+        mCRAdapter = new ContactsRcAdapter(getActivity(), list);
         mRcView.setAdapter(mCRAdapter);
+        mRcView.setOnScrollListener(new RecyclerView.OnScrollListener() {//new Api23 and what a fuck
+            //public static int SCROLL_STATE_IDLE = 0;
+            //public static int SCROLL_STATE_TOUCH_SCROLL = 1;
+            //public static int SCROLL_STATE_FLING = 2;
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    //execute when the state changed,only once
+                    mCRAdapter.closeAllItems();
+                    LogUtils.i("关闭了呵呵呵呵呵额呵呵呵呵呵呵");
+                }
+            }
+        });
         return mRcView;
-
     }
 
     @Override

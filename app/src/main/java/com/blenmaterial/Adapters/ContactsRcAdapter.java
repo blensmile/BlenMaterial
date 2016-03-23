@@ -76,8 +76,9 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
             @Override
             public void onStartOpen(SwipeLayout layout) {
                 if (null != openedItems) {
-                    openedItems.close(true);
-                    openedItems = null;
+//                    openedItems.close(true);
+//                    openedItems = null;
+                    closeAllItems();
                 }
                 LogUtils.i(position + "onStartOpen");
             }
@@ -93,7 +94,7 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View v) {
+            public void onClick(View v) {
                 ExplosionField explosionField = new ExplosionField(context, new FlyawayFactory());
                 //explosionField.addListener(view);
                 //getParent返回的ViewParent可能不是View,强转可能会有问题
@@ -126,6 +127,16 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    /** used to close item
+     *
+     */
+    public void closeAllItems() {
+        if(null != openedItems) {
+            openedItems.close(true);
+            openedItems = null;//置空
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

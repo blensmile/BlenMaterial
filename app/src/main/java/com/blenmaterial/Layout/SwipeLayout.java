@@ -300,13 +300,10 @@ public class SwipeLayout extends FrameLayout {
                 // 判断是否向左滑动
                 if (Math.abs(dx) > Math.abs(dy) && mStartX > 30f && mStartX< MyApplication.mMatics.widthPixels-30) {
                     getParent().requestDisallowInterceptTouchEvent(true);
-                    return this.onTouchEvent(ev);
-                    //return mDragHelper.shouldInterceptTouchEvent(ev);
+                    // here interrupt the flow of delivering TouchEvent, But I can't get a better solution
+                    return /*this.onInterceptTouchEvent(ev);//*/this.onTouchEvent(ev);
 
-                }/*else{
-                    getParent().requestDisallowInterceptTouchEvent(false);
-//                    return super.onTouchEvent(ev);
-                }*/
+                }
                 getParent().requestDisallowInterceptTouchEvent(false);
                 break;
             case MotionEvent.ACTION_UP:
@@ -314,21 +311,16 @@ public class SwipeLayout extends FrameLayout {
                 break;
             default:
                 getParent().requestDisallowInterceptTouchEvent(false);
-
                 break;
-
         }
-
-
 
         return super.dispatchTouchEvent(ev);
     }
 
     // 2. 转交拦截判断, 触摸事件
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        //this is neccesary for onClick.
         return mDragHelper.shouldInterceptTouchEvent(ev);
-
-//        return super.onInterceptTouchEvent(ev);
     }
 
     @Override
