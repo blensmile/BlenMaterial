@@ -36,7 +36,7 @@
             android:layout_gravity="center"/>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:id="@+id/contacts_ll"
@@ -48,20 +48,23 @@
             android:layout_height="60dp"
             android:padding="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/head_1" />
+            android:src="@drawable/head_1"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/name_tv"
+            android:layout_toRightOf="@id/head_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="5dp"
             android:text="TextView"
             android:textColor="#000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_centerVertical="true"/>
 
         <TextView
-            android:id="@+id/point"
+            android:id="@+id/point_tv"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_alignParentRight="true"
@@ -71,8 +74,9 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@android:color/white"
-            android:textSize="12sp" />
-    </LinearLayout>
+            android:textSize="12sp"
+            />
+    </RelativeLayout>
 
 
 </com.blenmaterial.Layout.SwipeLayout>

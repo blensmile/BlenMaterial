@@ -76,8 +76,8 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
             @Override
             public void onStartOpen(SwipeLayout layout) {
                 if (null != openedItems) {
-//                    openedItems.close(true);
-//                    openedItems = null;
+                    //                    openedItems.close(true);
+                    //                    openedItems = null;
                     closeAllItems();
                 }
                 LogUtils.i(position + "onStartOpen");
@@ -91,13 +91,11 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
         });
         holder.head.setImageResource(list.get(position).icon);
         holder.name.setText(list.get(position).name);
-        if(list.get(position).message>0) {
-            holder.point.setText(list.get(position).message);
-            holder.point.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.point.setVisibility(View.INVISIBLE);
-        }
+        int pos = list.get(position).message;
+        holder.point.setVisibility(pos>0 ? View.VISIBLE:View.INVISIBLE);
+
+        if(pos>0)
+            holder.point.setText(String.valueOf(pos));//here, if set a int value is not correct
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +157,7 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
             head = (ImageView) view.findViewById(R.id.head_iv);
             name = (TextView) view.findViewById(R.id.name_tv);
             delete = (TextView) view.findViewById(R.id.tv_delete);
-            point = (TextView) view.findViewById(R.id.point);
+            point = (TextView) view.findViewById(R.id.point_tv);
         }
     }
 
