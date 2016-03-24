@@ -29,14 +29,14 @@
         android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="70"
         android:title="HELLO"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/icon_blen"
         android:icon="@android:drawable/ic_menu_share"
         android:orderInCategory="80"
         android:title="BLEN"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 
     <!--<item-->
         <!--android:id="@+id/icon_shit"-->

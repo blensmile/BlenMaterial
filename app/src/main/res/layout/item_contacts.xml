@@ -59,6 +59,19 @@
             android:text="TextView"
             android:textColor="#000"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/point"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/red_bg"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
     </LinearLayout>
 
 

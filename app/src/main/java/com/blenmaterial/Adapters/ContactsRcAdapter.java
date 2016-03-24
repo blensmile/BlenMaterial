@@ -91,6 +91,13 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
         });
         holder.head.setImageResource(list.get(position).icon);
         holder.name.setText(list.get(position).name);
+        if(list.get(position).message>0) {
+            holder.point.setText(list.get(position).message);
+            holder.point.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.point.setVisibility(View.INVISIBLE);
+        }
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +151,7 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
         public ImageView head;
         public TextView name;
         public TextView delete;
+        public TextView point;
 
         public ViewHolder(SwipeLayout view) {
             super(view);
@@ -151,6 +159,7 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
             head = (ImageView) view.findViewById(R.id.head_iv);
             name = (TextView) view.findViewById(R.id.name_tv);
             delete = (TextView) view.findViewById(R.id.tv_delete);
+            point = (TextView) view.findViewById(R.id.point);
         }
     }
 

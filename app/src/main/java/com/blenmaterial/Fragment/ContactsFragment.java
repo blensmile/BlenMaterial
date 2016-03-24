@@ -49,8 +49,10 @@ public class ContactsFragment extends Fragment {
 
         list = new ArrayList<>();
         Random random = new Random();
+        int num;
         for (String i : Cheeses.NAMES) {
-            list.add(new ContactsBean(i, ICON_IDs[random.nextInt(ICON_IDs.length)]));
+            num = random.nextInt(ICON_IDs.length);
+            list.add(new ContactsBean(i, ICON_IDs[num],num % 10));
         }
 
         mRcView = new RecyclerView(getActivity());//一开始在想可不可代码创建,因为侧拉删除布局有问题,其实是可以的
