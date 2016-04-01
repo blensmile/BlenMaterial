@@ -27,6 +27,7 @@ public class SwipeLayout extends FrameLayout {
     private int mRange; // 拖拽范围
     private Status status = Status.Close; // 状态
     private OnSwipeListener onSwipeListener;
+
     public void setOnSwipeListener(OnSwipeListener onSwipeListener) {
         this.onSwipeListener = onSwipeListener;
     }
@@ -45,11 +46,13 @@ public class SwipeLayout extends FrameLayout {
     public interface OnSwipeListener {
         // 关闭了
         void onClose(SwipeLayout layout);
+
         // 打开了
         void onOpen(SwipeLayout layout);
 
         // 将要打开
         void onStartOpen(SwipeLayout layout);
+
         // 将要关闭
         void onStartClose(SwipeLayout layout);
     }
@@ -69,6 +72,7 @@ public class SwipeLayout extends FrameLayout {
         mDragHelper = ViewDragHelper.create(this, callback);
 
     }
+
     // 3. 处理监听回调
     ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {
 
@@ -83,20 +87,20 @@ public class SwipeLayout extends FrameLayout {
         // 修正将要移动到的位置
         public int clampViewPositionHorizontal(View child, int left, int dx) {
             // left 将要移动到的位置
-            if(child == mFrontView){
-                if(left < -mRange){
+            if (child == mFrontView) {
+                if (left < -mRange) {
                     // 限定前布局左边界
                     left = -mRange;
-                }else if (left > 0) {
+                } else if (left > 0) {
                     // 限定前布局右边界
                     left = 0;
                 }
-            }else if (child == mBackView) {
+            } else if (child == mBackView) {
 
-                if(left < mWidth - mRange){
+                if (left < mWidth - mRange) {
                     // 限定后布局左边界
-                    left = mWidth- mRange;
-                }else if (left > mWidth) {
+                    left = mWidth - mRange;
+                } else if (left > mWidth) {
                     // 限定后布局右边界
                     left = mWidth;
                 }
@@ -109,10 +113,10 @@ public class SwipeLayout extends FrameLayout {
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             // left 移动到的最新位置
             // dx 刚刚发生的偏移量
-            if(changedView == mFrontView){
+            if (changedView == mFrontView) {
                 // 将前布局的变化量传递给后布局
                 mBackView.offsetLeftAndRight(dx);
-            }else if (changedView == mBackView) {
+            } else if (changedView == mBackView) {
                 // 将后布局的变化量传递给前布局
                 mFrontView.offsetLeftAndRight(dx);
             }
@@ -126,11 +130,11 @@ public class SwipeLayout extends FrameLayout {
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
 
             // xvel 速度, 左 - , 右 +
-            if(Math.abs(xvel) <= 20 && mFrontView.getLeft() < (- mRange * 0.5f)){
+            if (Math.abs(xvel) <= 20 && mFrontView.getLeft() < (-mRange * 0.5f)) {
                 open();
-            }else if (xvel < -20) {
+            } else if (xvel < -20) {
                 open();
-            }else {
+            } else {
                 close();
             }
 
@@ -154,15 +158,15 @@ public class SwipeLayout extends FrameLayout {
         status = updateStatus();
 
         // 状态发生变化, 执行监听回调
-        if(lastStatus != status && onSwipeListener != null){
-            if(status == Status.Open){
+        if (lastStatus != status && onSwipeListener != null) {
+            if (status == Status.Open) {
                 onSwipeListener.onOpen(this);
-            }else if (status == Status.Close) {
+            } else if (status == Status.Close) {
                 onSwipeListener.onClose(this);
-            }else {
-                if(lastStatus == Status.Close){
+            } else {
+                if (lastStatus == Status.Close) {
                     onSwipeListener.onStartOpen(this);
-                }else if (lastStatus == Status.Open) {
+                } else if (lastStatus == Status.Open) {
                     onSwipeListener.onStartClose(this);
                 }
             }
@@ -175,9 +179,9 @@ public class SwipeLayout extends FrameLayout {
      */
     private Status updateStatus() {
         int left = mFrontView.getLeft();
-        if(left == - mRange){
+        if (left == -mRange) {
             return Status.Open;
-        }else if (left == 0) {
+        } else if (left == 0) {
             return Status.Close;
         }
         return Status.Swiping;
@@ -189,15 +193,16 @@ public class SwipeLayout extends FrameLayout {
     protected void close() {
         close(true);
     }
-    public void close(boolean isSmooth){
+
+    public void close(boolean isSmooth) {
         int finalLeft = 0;
-        if(isSmooth){
+        if (isSmooth) {
             // 1. 触发平滑动画
-            if(mDragHelper.smoothSlideViewTo(mFrontView, finalLeft, 0)){
+            if (mDragHelper.smoothSlideViewTo(mFrontView, finalLeft, 0)) {
                 ViewCompat.postInvalidateOnAnimation(this);// this表示被移动的控件所在的布局
             }
 
-        }else {
+        } else {
             layoutContent(false);
         }
     }
@@ -208,15 +213,16 @@ public class SwipeLayout extends FrameLayout {
     protected void open() {
         open(true);
     }
-    public void open(boolean isSmooth){
+
+    public void open(boolean isSmooth) {
         int finalLeft = -mRange;
-        if(isSmooth){
+        if (isSmooth) {
             // 1. 触发平滑动画
-            if(mDragHelper.smoothSlideViewTo(mFrontView, finalLeft, 0)){
+            if (mDragHelper.smoothSlideViewTo(mFrontView, finalLeft, 0)) {
                 ViewCompat.postInvalidateOnAnimation(this);// this表示被移动的控件所在的布局
             }
 
-        }else {
+        } else {
             layoutContent(true);
         }
     }
@@ -225,7 +231,7 @@ public class SwipeLayout extends FrameLayout {
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if(mDragHelper.continueSettling(true)){
+        if (mDragHelper.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);// this表示被移动的控件所在的布局
         }
     }
@@ -247,6 +253,7 @@ public class SwipeLayout extends FrameLayout {
 
     /**
      * 根据当前的开关状态, 摆放内容
+     *
      * @param isOpen 是否打开
      */
     private void layoutContent(boolean isOpen) {
@@ -271,8 +278,8 @@ public class SwipeLayout extends FrameLayout {
     // 计算前布局的矩形区域
     private Rect computeFrontRect(boolean isOpen) {
         int left = 0;
-        if(isOpen){
-            left = - mRange;
+        if (isOpen) {
+            left = -mRange;
         }
         return new Rect(left, 0, left + mWidth, 0 + mHeight);
     }
@@ -282,7 +289,7 @@ public class SwipeLayout extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        //TODO 这里太霸道了,不能全部拦截,不然没法上下滚动了
+        //首先要求不能拦截事件，然后在switch中判断，事件是否真的该被拦截，如果不该，设置回去
         getParent().requestDisallowInterceptTouchEvent(true);
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -295,8 +302,8 @@ public class SwipeLayout extends FrameLayout {
                 float dx = endX - mStartX;
                 float dy = endY - mStartY;
 
-                // 判断是否向左滑动
-                if (Math.abs(dx) < Math.abs(dy) | (mStartX < UiUtils.dip2px(30f) ) | (mStartX >( MyApplication.mMatics.widthPixels - UiUtils.dip2px(30f)))) {
+                // 判断滑动起点和方向
+                if (Math.abs(dx) < Math.abs(dy) | (mStartX < UiUtils.dip2px(30f)) | (mStartX > (MyApplication.mMatics.widthPixels - UiUtils.dip2px(30f)))) {
                     getParent().requestDisallowInterceptTouchEvent(false);
                 }
                 break;
@@ -312,33 +319,8 @@ public class SwipeLayout extends FrameLayout {
 
     // 2. 转交拦截判断, 触摸事件
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        //this is neccesary for onClick.
-        switch (ev.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                mStartX = ev.getX();
-                mStartY = ev.getY();
-                //return true;//这里不能返回true,太独了
-//                if( mStartX > UiUtils.dip2px(30f) && mStartX< MyApplication.mMatics.widthPixels-UiUtils.dip2px(30f)) {
-//                    getParent().requestDisallowInterceptTouchEvent(true);
-//                    return true;
-//                }
-                break;
-//
-            case MotionEvent.ACTION_MOVE:
-                float endX = ev.getX();
-                float endY = ev.getY();
-
-                float dx = endX - mStartX;
-                float dy = endY - mStartY;
-
-                // 判断是否向左滑动
-                if (Math.abs(dx) > Math.abs(dy) && mStartX > UiUtils.dip2px(30f) && mStartX < MyApplication.mMatics.widthPixels-UiUtils.dip2px(30f)) {
-                    return mDragHelper.shouldInterceptTouchEvent(ev);
-                }
-                break;
-        }
-//        return mDragHelper.shouldInterceptTouchEvent(ev);
-        return super.onInterceptTouchEvent(ev);
+        //dispatch阶段已经把好关了，能到这里，说明肯定是需要拦截的并处理的事件，这里只用处理就行了
+        return mDragHelper.shouldInterceptTouchEvent(ev);
     }
 
     @Override
@@ -353,7 +335,6 @@ public class SwipeLayout extends FrameLayout {
 
         return true;
     }
-
 
 
 }
