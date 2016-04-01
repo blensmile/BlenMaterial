@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.blenmaterial.MyApplication;
+import com.blenmaterial.Utils.UiUtils;
 
 
 /**
@@ -282,29 +283,22 @@ public class SwipeLayout extends FrameLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         //TODO 这里太霸道了,不能全部拦截,不然没法上下滚动了
-        //getParent().requestDisallowInterceptTouchEvent(true);
-        switch (ev.getAction()){
+        getParent().requestDisallowInterceptTouchEvent(true);
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mStartX = ev.getX();
                 mStartY = ev.getY();
-                //return true;//这里不能返回true,太独了
-                //getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_MOVE:
                 float endX = ev.getX();
                 float endY = ev.getY();
-
                 float dx = endX - mStartX;
                 float dy = endY - mStartY;
 
                 // 判断是否向左滑动
-                if (Math.abs(dx) > Math.abs(dy) && mStartX > 30f && mStartX< MyApplication.mMatics.widthPixels-30) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                    // here interrupt the flow of delivering TouchEvent, But I can't get a better solution
-                    return /*this.onInterceptTouchEvent(ev);//*/this.onTouchEvent(ev);
-
+                if (Math.abs(dx) < Math.abs(dy) | (mStartX < UiUtils.dip2px(30f) ) | (mStartX >( MyApplication.mMatics.widthPixels - UiUtils.dip2px(30f)))) {
+                    getParent().requestDisallowInterceptTouchEvent(false);
                 }
-                getParent().requestDisallowInterceptTouchEvent(false);
                 break;
             case MotionEvent.ACTION_UP:
                 getParent().requestDisallowInterceptTouchEvent(false);
@@ -313,14 +307,38 @@ public class SwipeLayout extends FrameLayout {
                 getParent().requestDisallowInterceptTouchEvent(false);
                 break;
         }
-
         return super.dispatchTouchEvent(ev);
     }
 
     // 2. 转交拦截判断, 触摸事件
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         //this is neccesary for onClick.
-        return mDragHelper.shouldInterceptTouchEvent(ev);
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                mStartX = ev.getX();
+                mStartY = ev.getY();
+                //return true;//这里不能返回true,太独了
+//                if( mStartX > UiUtils.dip2px(30f) && mStartX< MyApplication.mMatics.widthPixels-UiUtils.dip2px(30f)) {
+//                    getParent().requestDisallowInterceptTouchEvent(true);
+//                    return true;
+//                }
+                break;
+//
+            case MotionEvent.ACTION_MOVE:
+                float endX = ev.getX();
+                float endY = ev.getY();
+
+                float dx = endX - mStartX;
+                float dy = endY - mStartY;
+
+                // 判断是否向左滑动
+                if (Math.abs(dx) > Math.abs(dy) && mStartX > UiUtils.dip2px(30f) && mStartX < MyApplication.mMatics.widthPixels-UiUtils.dip2px(30f)) {
+                    return mDragHelper.shouldInterceptTouchEvent(ev);
+                }
+                break;
+        }
+//        return mDragHelper.shouldInterceptTouchEvent(ev);
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override

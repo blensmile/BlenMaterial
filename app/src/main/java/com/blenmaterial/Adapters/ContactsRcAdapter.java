@@ -159,6 +159,7 @@ public class ContactsRcAdapter extends RecyclerView.Adapter<ContactsRcAdapter.Vi
             delete = (TextView) view.findViewById(R.id.tv_delete);
             point = (TextView) view.findViewById(R.id.point_tv);
         }
+
     }
 
 }

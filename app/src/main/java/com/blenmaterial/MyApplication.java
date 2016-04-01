@@ -30,6 +30,7 @@ public class MyApplication extends Application {
 //
         mMatics = new DisplayMetrics();
         ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(mMatics);
+//        Log.i("HelloBlen","width is: " + mMatics.widthPixels + "  height is: " +mMatics.heightPixels );
         //初始化Context
         context = getApplicationContext();
         //初始化Handler

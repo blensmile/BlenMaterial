@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,45 +125,6 @@ public class MainActivity extends AppCompatActivity {
         //            e.printStackTrace();
         //        }
         LogUtils.i("MainActivity onCreate");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        LogUtils.i("MainActivity onRestart");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        LogUtils.i("MainActivity onStart");
-    }
-
-    @Override
-    public void onResume() {
-        //        isForeground = true;
-        super.onResume();
-        LogUtils.i("MainActivity onResume");
-    }
-
-    @Override
-    public void onPause() {
-        //        isForeground = false;
-        super.onPause();
-        LogUtils.i("MainActivity onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        LogUtils.i("MainActivity onStop");
-    }
-
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
-        LogUtils.i("MainActivity onDestroy");
     }
 
     //this turns out to be of no use
@@ -255,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
             public CharSequence getPageTitle(int position) {
                 return mTitle[position];
             }
+
 
         };
         mPager.setAdapter(fpAdapter);
