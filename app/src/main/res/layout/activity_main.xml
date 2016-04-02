@@ -13,8 +13,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+
         >
+        <!--android:fitsSystemWindows="true"-->
         <!--tools:context="com.blenlearn.MainActivity"-->
 
         <android.support.design.widget.AppBarLayout
@@ -22,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -40,10 +42,10 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="#03BCD4"
+                android:background="#e3d733"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:tabIndicatorHeight="0dp"
-                app:tabSelectedTextColor="#ffff0000"
+                app:tabSelectedTextColor="#ff0000"
                 />
 
         </android.support.design.widget.AppBarLayout>

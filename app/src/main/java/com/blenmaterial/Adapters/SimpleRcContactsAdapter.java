@@ -1,6 +1,7 @@
 package com.blenmaterial.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class SimpleRcContactsAdapter extends RecyclerView.Adapter<SimpleRcContac
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         TextView view = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        view.setTextColor(Color.BLACK);
         return new Holder(view);
     }
 
